@@ -1,0 +1,19 @@
+-- Insert Departments
+INSERT INTO departments VALUES
+(1,'IT'),
+(2,'HR'),
+(3,'Sales');
+
+-- Insert Employees
+INSERT INTO employees VALUES
+(1,'Pooja',1,'2023-01-10'),
+(2,'Amit',2,'2022-05-15'),
+(3,'Neha',1,'2024-03-01'),
+(4,'Rahul',3,'2023-06-20');
+
+-- Insert Salaries
+INSERT INTO salaries VALUES
+(1,60000),
+(2,45000),
+(3,55000),
+(4,40000);

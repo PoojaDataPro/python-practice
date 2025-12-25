@@ -1,0 +1,65 @@
+-- 1. All employees with their department
+SELECT e.emp_name, d.dept_name
+FROM employees e
+JOIN departments d ON e.dept_id = d.dept_id;
+
+-- 2. Employees with salary > 50000
+SELECT e.emp_name, s.salary
+FROM employees e
+JOIN salaries s ON e.emp_id = s.emp_id
+WHERE s.salary > 50000;
+
+-- 3. Department-wise employee count
+SELECT d.dept_name, COUNT(e.emp_id) AS total_employees
+FROM departments d
+LEFT JOIN employees e ON d.dept_id = e.dept_id
+GROUP BY d.dept_name;
+
+-- 4. Employees without salary assigned
+SELECT e.emp_name
+FROM employees e
+LEFT JOIN salaries s ON e.emp_id = s.emp_id
+WHERE s.emp_id IS NULL;
+
+-- 5. Employee with highest salary
+SELECT e.emp_name, s.salary
+FROM employees e
+JOIN salaries s ON e.emp_id = s.emp_id
+WHERE s.salary = (SELECT MAX(salary) FROM salaries);
+
+-- 6. Average salary in IT department
+SELECT AVG(s.salary) AS avg_salary
+FROM employees e
+JOIN departments d ON e.dept_id = d.dept_id
+JOIN salaries s ON e.emp_id = s.emp_id
+WHERE d.dept_name = 'IT';
+
+-- 7. Departments without employees
+SELECT d.dept_name
+FROM departments d
+LEFT JOIN employees e ON d.dept_id = e.dept_id
+WHERE e.emp_id IS NULL;
+
+-- 8. Employees joined after 2023
+SELECT emp_name, hire_date
+FROM employees
+WHERE hire_date > '2023-01-01';
+
+-- 9. Total salary by department
+SELECT d.dept_name, SUM(s.salary) AS total_salary
+FROM departments d
+JOIN employees e ON d.dept_id = e.dept_id
+JOIN salaries s ON e.emp_id = s.emp_id
+GROUP BY d.dept_name;
+
+-- 10. Employees earning above department average
+SELECT e.emp_name, s.salary, d.dept_name
+FROM employees e
+JOIN salaries s ON e.emp_id = s.emp_id
+JOIN departments d ON e.dept_id = d.dept_id
+WHERE s.salary > (
+  SELECT AVG(s2.salary)
+  FROM employees e2
+  JOIN salaries s2 ON e2.emp_id = s2.emp_id
+  WHERE e2.dept_id = e.dept_id
+);
