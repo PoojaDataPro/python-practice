@@ -1,2 +1,3 @@
 # python-practice
-Beginner Python programs and practice projects.
+employee-department-mysql_project
+
